@@ -1,12 +1,23 @@
 package com.company.medismart.channel.controller;
 
 import com.company.medismart.channel.dto.Patient;
+import com.company.medismart.channel.service.PatientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/patient")
 public class PatientController {
 
-    public void addNewPatient(Patient patient) {
+    @Autowired
+    private PatientService patientService;
 
+
+    @RequestMapping(method = RequestMethod.POST)
+    public void addNewPatient(@RequestBody Patient patient) {
+        patientService.addPatient(patient);
     }
 }
