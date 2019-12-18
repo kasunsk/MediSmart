@@ -1,16 +1,40 @@
 package com.company.medismart.channel.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PATIENT")
 public class PatientModel {
 
-
+    @Id
+    @Column(name = "NIC", nullable = false)
     private String nic;
+
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
+
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
+
+    @Column(name = "DATE_OF_BIRTH", nullable = false)
     private String dateOfBirth;
+
+    @Column(name = "DIABETES", nullable = false)
     private Boolean diabetes;
+
+    @Column(name = "BLOOD_PRESSURE", nullable = false)
     private Boolean bloodPressure;
+
+    @Column(name = "CHOLESTEROL", nullable = false)
     private Boolean cholesterol;
+
+    @Column(name = "ALLERGY", nullable = false)
     private Boolean allergy;
+
+    @Column(name = "NOTES", nullable = true)
     private String specialNote;
 
     public String getNic() {
