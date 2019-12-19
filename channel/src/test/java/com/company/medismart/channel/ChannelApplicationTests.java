@@ -1,4 +1,4 @@
-package com.comapny.medismart.channel;
+package com.company.medismart.channel;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
