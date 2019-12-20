@@ -11,5 +11,4 @@ public interface PatientService {
     Patient loadPatientByNic(String nic);
     Patient loadPatientByMobileNumber(String mobileNumber);
     List<Patient> loadAll();
-    List<Patient> loadAllPatientByDate(String date);
 }

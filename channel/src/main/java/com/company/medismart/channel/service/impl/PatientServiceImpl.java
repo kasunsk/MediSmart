@@ -29,12 +29,18 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public boolean removePatient(String nic) {
-        return false;
+        PatientModel patientModel = patientDao.getOne(nic);
+        patientDao.delete(patientModel);
+        return Boolean.TRUE;
     }
 
     @Override
     public Patient updatePatient(Patient patient, String currentNic) {
-        return null;
+        PatientModel patientModel = patientDao.getOne(currentNic);
+        PatientModel updatedPatient = patientAdaptor.fromDto(patient);
+        updateModel(updatedPatient, patientModel);
+        patientDao.save(patientModel);
+        return patient;
     }
 
     @Override
@@ -43,19 +49,20 @@ public class PatientServiceImpl implements PatientService {
         return patientAdaptor.fromModel(patientModel);
     }
 
+    @Transactional
     @Override
     public Patient loadPatientByMobileNumber(String mobileNumber) {
         return null;
     }
 
+    @Transactional
     @Override
     public List<Patient> loadAll() {
         List<PatientModel> patientModels = patientDao.findAll();
         return patientAdaptor.fromModelList(patientModels);
     }
 
-    @Override
-    public List<Patient> loadAllPatientByDate(String date) {
-        return null;
+    private void updateModel(PatientModel updatedPatient, PatientModel patientModel) {
+        //update model
     }
 }
