@@ -1,4 +1,4 @@
-package com.company.medismart.core;
+package com.company.medismart.core.adaptor;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;

@@ -2,7 +2,7 @@ package com.company.medismart.channel.adaptor;
 
 import com.company.medismart.channel.dto.Patient;
 import com.company.medismart.channel.model.PatientModel;
-import com.company.medismart.core.AbstractModelAdaptor;
+import com.company.medismart.core.adaptor.AbstractModelAdaptor;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
 

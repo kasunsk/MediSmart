@@ -39,12 +39,19 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient loadPatientByNic(String nic) {
-        return null;
+        PatientModel patientModel = patientDao.getOne(nic);
+        return patientAdaptor.fromModel(patientModel);
     }
 
     @Override
     public Patient loadPatientByMobileNumber(String mobileNumber) {
         return null;
+    }
+
+    @Override
+    public List<Patient> loadAll() {
+        List<PatientModel> patientModels = patientDao.findAll();
+        return patientAdaptor.fromModelList(patientModels);
     }
 
     @Override

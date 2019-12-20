@@ -1,4 +1,4 @@
-rootProject.name = 'com.company'
+rootProject.name = 'MediSmart'
 include 'core'
 include 'channel'
 

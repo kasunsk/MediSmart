@@ -1,5 +1,7 @@
 package com.company.medismart.channel.model;
 
+import com.company.medismart.core.model.AbstractTrackableEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -34,7 +36,7 @@ public class PatientModel {
     @Column(name = "ALLERGY", nullable = false)
     private Boolean allergy;
 
-    @Column(name = "NOTES", nullable = true)
+    @Column(name = "NOTES", nullable = false)
     private String specialNote;
 
     public String getNic() {
