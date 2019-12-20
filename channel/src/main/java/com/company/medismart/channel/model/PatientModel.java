@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PATIENT")
-public class PatientModel {
+public class PatientModel extends AbstractTrackableEntity {
 
     @Id
     @Column(name = "NIC", nullable = false)

@@ -1,5 +1,10 @@
 package com.company.medismart.channel.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
+
 public class Patient {
 
     private String nic;
@@ -11,6 +16,9 @@ public class Patient {
     private Boolean cholesterol;
     private Boolean allergy;
     private String specialNote;
+    protected String createdDate;
+    protected String lastModifiedDate;
+    protected Long version;
 
     public String getNic() {
         return nic;
@@ -82,5 +90,29 @@ public class Patient {
 
     public void setSpecialNote(String specialNote) {
         this.specialNote = specialNote;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }
