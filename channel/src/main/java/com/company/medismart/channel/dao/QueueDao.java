@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository("queueDao")
 public interface QueueDao extends JpaRepository<QueModel, Long> {
+
+
 }
