@@ -59,8 +59,12 @@ public class QueueServiceImpl implements QueueService {
         return nextQueueNumber;
     }
 
+    @Transactional
     @Override
     public List<QueuePatient> loadAllQuePatients(Long queId) {
-        return null;
+
+        QueModel queModel = queueDao.getOne(queId);
+        Queue queue = queueAdaptor.fromModel(queModel);
+        return queue.getPatients();
     }
 }
