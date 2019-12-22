@@ -1,14 +1,15 @@
-package com.company.medismart.channel.dto;
+package com.company.medismart.channel.model;
 
-public class QueuePatient {
+import com.company.medismart.channel.dto.Queue;
+import com.company.medismart.channel.dto.QueuePatientStatus;
 
-    private Long patientQueId;
+public class QueuePatientModel {
+
+    private Long quePatientId;
     private String patientNic;
     private Integer queNumber;
     private Queue queueId;
     private QueuePatientStatus status;
-
-
 
     public String getPatientNic() {
         return patientNic;
