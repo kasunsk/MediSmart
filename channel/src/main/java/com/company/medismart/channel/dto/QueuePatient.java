@@ -8,7 +8,13 @@ public class QueuePatient {
     private Queue queueId;
     private QueuePatientStatus status;
 
+    public Long getPatientQueId() {
+        return patientQueId;
+    }
 
+    public void setPatientQueId(Long patientQueId) {
+        this.patientQueId = patientQueId;
+    }
 
     public String getPatientNic() {
         return patientNic;

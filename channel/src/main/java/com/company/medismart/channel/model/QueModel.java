@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "PATIENT")
+@Table(name = "T_QUEUE")
 public class QueModel extends AbstractTrackableEntity {
 
     @Id
@@ -20,15 +20,13 @@ public class QueModel extends AbstractTrackableEntity {
     @Column(name = "DOCTOR_ID", nullable = false)
     private String doctorUserId;
 
-    @Column(name = "CURRENT_DATE", nullable = false)
-    private Date currentDate;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "QUE_STATUS", nullable = false)
     private QueueStatus status;
 
+    @Column(name = "PATIENT_ID", nullable = false)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quePatientId")
-    private List<QueuePatient> patients;
+    private List<QueuePatientModel> patients;
 
     public Long getQueueId() {
         return queueId;
@@ -46,27 +44,19 @@ public class QueModel extends AbstractTrackableEntity {
         this.doctorUserId = doctorUserId;
     }
 
-    public Date getCurrentDate() {
-        return currentDate;
-    }
-
-    public void setCurrentDate(Date currentDate) {
-        this.currentDate = currentDate;
-    }
-
-    public List<QueuePatient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<QueuePatient> patients) {
-        this.patients = patients;
-    }
-
     public QueueStatus getStatus() {
         return status;
     }
 
     public void setStatus(QueueStatus status) {
         this.status = status;
+    }
+
+    public List<QueuePatientModel> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<QueuePatientModel> patients) {
+        this.patients = patients;
     }
 }
