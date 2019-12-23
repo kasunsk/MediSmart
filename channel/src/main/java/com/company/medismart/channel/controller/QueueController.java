@@ -28,9 +28,14 @@ public class QueueController {
         return queueService.addPatientToQueue(patientAddToQueParam.getQueId(), patientAddToQueParam.getPatientId());
     }
 
-    @RequestMapping(value = "/{queId}", method = RequestMethod.GET)
-    public List<QueuePatient> getPatientByNIC(@PathVariable("queId") Long queId){
+    @RequestMapping(value = "/patients/{queId}", method = RequestMethod.GET)
+    public List<QueuePatient> getPatientsByQueueId(@PathVariable("queId") Long queId){
         return queueService.loadAllQuePatients(queId);
+    }
+
+    @RequestMapping(value = "/{queId}", method = RequestMethod.GET)
+    public Queue getQueueByQueueId(@PathVariable("queId") Long queId){
+        return queueService.loadQueById(queId);
     }
 
 }

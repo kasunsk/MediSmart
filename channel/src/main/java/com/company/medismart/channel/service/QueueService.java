@@ -10,4 +10,5 @@ public interface QueueService {
     void inActiveQueue(Long queId);
     Integer addPatientToQueue(Long queId, String patientId);
     List<QueuePatient> loadAllQuePatients(Long queId);
+    Queue loadQueById(Long queId);
 }

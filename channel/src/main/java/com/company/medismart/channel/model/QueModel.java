@@ -5,7 +5,6 @@ import com.company.medismart.channel.dto.QueueStatus;
 import com.company.medismart.core.model.AbstractTrackableEntity;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,8 +23,7 @@ public class QueModel extends AbstractTrackableEntity {
     @Column(name = "QUE_STATUS", nullable = false)
     private QueueStatus status;
 
-    @Column(name = "PATIENT_ID", nullable = false)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quePatientId")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "queueId")
     private List<QueuePatientModel> patients;
 
     public Long getQueueId() {

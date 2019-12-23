@@ -16,11 +16,11 @@ public class QueuePatientModel {
     @Column(name = "PATIENT_NIC", nullable = false)
     private String patientNic;
 
-    @Column(name = "QUEUE_ID", nullable = false)
+    @Column(name = "QUEUE_NUMBER", nullable = false)
     private Integer queNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "QUEUE_ID", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE,  optional = false)
+    @JoinColumn(name = "QUEUE_ID", referencedColumnName = "QUEUE_ID", nullable = false, insertable = false, updatable = false)
     private QueModel queueId;
 
     @Enumerated(EnumType.STRING)

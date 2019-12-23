@@ -14,6 +14,13 @@ public class QueuePatientAdaptor extends AbstractModelAdaptor<QueuePatientModel,
     }
 
     @Override
+    public QueuePatient fromModel(QueuePatientModel document) {
+        QueuePatient queuePatient = super.fromModel(document);
+        queuePatient.setQueueId(null);
+        return queuePatient;
+    }
+
+    @Override
     protected PropertyMap<QueuePatientModel, QueuePatient> fromModelMappings() {
         return new PropertyMap<QueuePatientModel, QueuePatient>() {
             @Override
