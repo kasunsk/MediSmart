@@ -4,8 +4,10 @@ import com.company.medismart.channel.adaptor.PatientAdaptor;
 import com.company.medismart.channel.dao.PatientDao;
 import com.company.medismart.channel.dto.Patient;
 import com.company.medismart.channel.model.PatientModel;
+import com.company.medismart.channel.param.PageableSupport;
 import com.company.medismart.channel.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -62,7 +64,14 @@ public class PatientServiceImpl implements PatientService {
         return patientAdaptor.fromModelList(patientModels);
     }
 
+    @Transactional
+    @Override
+    public Page<Patient> loadAll(PageableSupport pageable) {
+        Page<PatientModel> patientPage = patientDao.findAll(pageable);
+        return patientAdaptor.fromModelPage(patientPage);
+    }
+
     private void updateModel(PatientModel updatedPatient, PatientModel patientModel) {
-        //update model
+        //todo impl
     }
 }

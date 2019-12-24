@@ -18,7 +18,6 @@ public class Patient {
     private String specialNote;
     protected String createdDate;
     protected String lastModifiedDate;
-    protected Long version;
 
     public String getNic() {
         return nic;
@@ -106,13 +105,5 @@ public class Patient {
 
     public void setLastModifiedDate(String lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
     }
 }

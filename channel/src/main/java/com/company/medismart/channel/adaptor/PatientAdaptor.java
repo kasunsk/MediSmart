@@ -5,7 +5,13 @@ import com.company.medismart.channel.model.PatientModel;
 import com.company.medismart.core.adaptor.AbstractModelAdaptor;
 import com.company.medismart.core.utils.DateUtils;
 import org.modelmapper.PropertyMap;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.function.Function;
 
 @Component
 public class PatientAdaptor extends AbstractModelAdaptor<PatientModel, Patient> {
@@ -43,5 +49,15 @@ public class PatientAdaptor extends AbstractModelAdaptor<PatientModel, Patient> 
             protected void configure() {
             }
         };
+    }
+
+    public Page<Patient> fromModelPage(Page<PatientModel> modelPage) {
+        Page<Patient> dtoPage = modelPage.map(new Function<PatientModel, Patient>() {
+            @Override
+            public Patient apply(PatientModel entity) {
+                return fromModel(entity);
+            }
+        });
+        return dtoPage;
     }
 }
