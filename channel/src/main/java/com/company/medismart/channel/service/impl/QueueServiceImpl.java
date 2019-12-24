@@ -9,8 +9,11 @@ import com.company.medismart.channel.dto.QueuePatientStatus;
 import com.company.medismart.channel.dto.QueueStatus;
 import com.company.medismart.channel.model.QueModel;
 import com.company.medismart.channel.model.QueuePatientModel;
+import com.company.medismart.channel.param.PageableSupport;
+import com.company.medismart.channel.param.QueueResponse;
 import com.company.medismart.channel.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -79,5 +82,12 @@ public class QueueServiceImpl implements QueueService {
         QueModel queModel = queueDao.getOne(queId);
         queModel.setPatients(new ArrayList<>());
         return queueAdaptor.fromModel(queModel);
+    }
+
+    @Transactional
+    @Override
+    public Page<Queue> loadAllQue(PageableSupport pageableSupport) {
+        Page<QueModel> pagedQueues = queueDao.findAll(pageableSupport);
+        return queueAdaptor.fromModelPage(pagedQueues);
     }
 }

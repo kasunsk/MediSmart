@@ -2,15 +2,12 @@ package com.company.medismart.channel.controller;
 
 import com.company.medismart.channel.adaptor.QueueParamAdaptor;
 import com.company.medismart.channel.adaptor.QueuePatientParamAdaptor;
-import com.company.medismart.channel.dto.Patient;
 import com.company.medismart.channel.dto.Queue;
 import com.company.medismart.channel.dto.QueuePatient;
-import com.company.medismart.channel.param.PatientAddToQueParam;
-import com.company.medismart.channel.param.QueCreateParam;
-import com.company.medismart.channel.param.QueuePatientResponseParam;
-import com.company.medismart.channel.param.QueueResponseParam;
+import com.company.medismart.channel.param.*;
 import com.company.medismart.channel.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,9 +41,15 @@ public class QueueController {
     }
 
     @RequestMapping(value = "/{queId}", method = RequestMethod.GET)
-    public QueueResponseParam getQueueByQueueId(@PathVariable("queId") Long queId){
+    public QueueResponse getQueueByQueueId(@PathVariable("queId") Long queId){
         Queue queue = queueService.loadQueById(queId);
         return queueParamAdaptor.fromDto(queue);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public Page<QueueResponse> loadAllQueues(@RequestBody PageableSupport pageableSupport){
+        Page<Queue> queuePage = queueService.loadAllQue(pageableSupport);
+        return queueParamAdaptor.fromDtoPage(queuePage);
     }
 
 }

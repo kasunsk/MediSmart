@@ -1,11 +1,16 @@
 package com.company.medismart.channel.adaptor;
 
 import com.company.medismart.channel.dto.Queue;
+import com.company.medismart.channel.dto.QueuePatient;
 import com.company.medismart.channel.model.QueModel;
+import com.company.medismart.channel.model.QueuePatientModel;
 import com.company.medismart.core.adaptor.AbstractModelAdaptor;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+
+import java.util.function.Function;
 
 @Component
 public class QueueAdaptor extends AbstractModelAdaptor<QueModel, Queue> {
@@ -49,5 +54,15 @@ public class QueueAdaptor extends AbstractModelAdaptor<QueModel, Queue> {
 
             }
         };
+    }
+
+    public Page<Queue> fromModelPage(Page<QueModel> modelPage) {
+        Page<Queue> dtoPage = modelPage.map(new Function<QueModel, Queue>() {
+            @Override
+            public Queue apply(QueModel entity) {
+                return fromModel(entity);
+            }
+        });
+        return dtoPage;
     }
 }

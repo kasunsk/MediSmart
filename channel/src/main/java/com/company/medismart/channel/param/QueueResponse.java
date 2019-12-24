@@ -1,12 +1,10 @@
 package com.company.medismart.channel.param;
 
-import com.company.medismart.channel.dto.QueuePatient;
 import com.company.medismart.channel.dto.QueueStatus;
 
-import java.util.Date;
 import java.util.List;
 
-public class QueueResponseParam {
+public class QueueResponse {
 
     private Long queueId;
     private String doctorUserId;
