@@ -19,9 +19,9 @@ public class QueuePatientModel {
     @Column(name = "QUEUE_NUMBER", nullable = false)
     private Integer queNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE,  optional = false)
-    @JoinColumn(name = "QUEUE_ID", referencedColumnName = "QUEUE_ID", nullable = false, insertable = false, updatable = false)
-    private QueModel queueId;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "QUEUE_ID")
+    private QueModel queue;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "QUEUE_PATIENT_STATUS", nullable = false)
@@ -51,12 +51,12 @@ public class QueuePatientModel {
         this.queNumber = queNumber;
     }
 
-    public QueModel getQueueId() {
-        return queueId;
+    public QueModel getQueue() {
+        return queue;
     }
 
-    public void setQueueId(QueModel queueId) {
-        this.queueId = queueId;
+    public void setQueue(QueModel queue) {
+        this.queue = queue;
     }
 
     public QueuePatientStatus getStatus() {

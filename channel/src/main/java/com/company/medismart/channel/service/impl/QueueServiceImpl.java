@@ -59,9 +59,8 @@ public class QueueServiceImpl implements QueueService {
         newPatient.setPatientNic(patientId);
         newPatient.setStatus(QueuePatientStatus.WAITING);
         newPatient.setQueNumber(nextQueueNumber);
-        newPatient.setQueueId(queModel);
-        queModel.getPatients().add(newPatient);
-        queueDao.save(queModel);
+        newPatient.setQueue(queModel);
+        quePatientDao.save(newPatient);
         return nextQueueNumber;
     }
 
