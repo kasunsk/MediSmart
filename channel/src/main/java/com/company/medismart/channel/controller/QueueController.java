@@ -1,10 +1,14 @@
 package com.company.medismart.channel.controller;
 
+import com.company.medismart.channel.adaptor.QueueParamAdaptor;
+import com.company.medismart.channel.adaptor.QueuePatientParamAdaptor;
 import com.company.medismart.channel.dto.Patient;
 import com.company.medismart.channel.dto.Queue;
 import com.company.medismart.channel.dto.QueuePatient;
 import com.company.medismart.channel.param.PatientAddToQueParam;
 import com.company.medismart.channel.param.QueCreateParam;
+import com.company.medismart.channel.param.QueuePatientResponseParam;
+import com.company.medismart.channel.param.QueueResponseParam;
 import com.company.medismart.channel.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,12 @@ public class QueueController {
 
     @Autowired
     private QueueService queueService;
+
+    @Autowired
+    private QueuePatientParamAdaptor queuePatientParamAdaptor;
+
+    @Autowired
+    private QueueParamAdaptor queueParamAdaptor;
 
     @RequestMapping(method = RequestMethod.PUT)
     private Queue createQue(@RequestBody QueCreateParam queCreateParam) {
@@ -34,8 +44,9 @@ public class QueueController {
     }
 
     @RequestMapping(value = "/{queId}", method = RequestMethod.GET)
-    public Queue getQueueByQueueId(@PathVariable("queId") Long queId){
-        return queueService.loadQueById(queId);
+    public QueueResponseParam getQueueByQueueId(@PathVariable("queId") Long queId){
+        Queue queue = queueService.loadQueById(queId);
+        return queueParamAdaptor.fromDto(queue);
     }
 
 }

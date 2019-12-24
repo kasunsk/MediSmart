@@ -1,16 +1,19 @@
-package com.company.medismart.channel.dto;
+package com.company.medismart.channel.param;
+
+import com.company.medismart.channel.dto.QueuePatient;
+import com.company.medismart.channel.dto.QueueStatus;
 
 import java.util.Date;
 import java.util.List;
 
-public class Queue {
+public class QueueResponseParam {
 
     private Long queueId;
     private String doctorUserId;
-    private List<QueuePatient> patients;
+    private List<QueuePatientResponseParam> patients;
     private QueueStatus status;
-    protected Date createdDate;
-    protected Date lastModifiedDate;
+    protected String createdDate;
+    protected String lastModifiedDate;
 
     public Long getQueueId() {
         return queueId;
@@ -28,11 +31,11 @@ public class Queue {
         this.doctorUserId = doctorUserId;
     }
 
-    public List<QueuePatient> getPatients() {
+    public List<QueuePatientResponseParam> getPatients() {
         return patients;
     }
 
-    public void setPatients(List<QueuePatient> patients) {
+    public void setPatients(List<QueuePatientResponseParam> patients) {
         this.patients = patients;
     }
 
@@ -44,19 +47,19 @@ public class Queue {
         this.status = status;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getLastModifiedDate() {
+    public String getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(String lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 }
