@@ -2,10 +2,14 @@ package com.company.medismart.channel.adaptor;
 
 import com.company.medismart.channel.dto.Queue;
 import com.company.medismart.channel.dto.QueuePatient;
+import com.company.medismart.channel.model.QueuePatientModel;
 import com.company.medismart.channel.param.QueuePatientResponseParam;
 import com.company.medismart.core.adaptor.AbstractParamAdaptor;
 import org.modelmapper.PropertyMap;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+
+import java.util.function.Function;
 
 @Component
 public class QueuePatientParamAdaptor extends AbstractParamAdaptor<QueuePatientResponseParam, QueuePatient> {
@@ -48,5 +52,15 @@ public class QueuePatientParamAdaptor extends AbstractParamAdaptor<QueuePatientR
 
             }
         };
+    }
+
+    public Page<QueuePatientResponseParam> fromDtoPage(Page<QueuePatient> modelPage) {
+        Page<QueuePatientResponseParam> dtoPage = modelPage.map(new Function<QueuePatient, QueuePatientResponseParam>() {
+            @Override
+            public QueuePatientResponseParam apply(QueuePatient entity) {
+                return fromDto(entity);
+            }
+        });
+        return dtoPage;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Sort;
 
 public class PageableSupport implements Pageable {
 
-    private int pageNumber;
+    private int pageNumber = 0;
     private int pageSize = 10;
     private int limit;
     private int offset;

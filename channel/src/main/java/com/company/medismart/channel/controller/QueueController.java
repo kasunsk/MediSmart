@@ -52,4 +52,10 @@ public class QueueController {
         return queueParamAdaptor.fromDtoPage(queuePage);
     }
 
+    @RequestMapping(value = "/patients" ,method = RequestMethod.POST)
+    public Page<QueuePatientResponseParam> loadAllQueuePatients(@RequestBody QueuePatientLoadRequest loadRequest){
+        Page<QueuePatient> queuePage = queueService.loadAllQueuePatients(loadRequest);
+        return queuePatientParamAdaptor.fromDtoPage(queuePage);
+    }
+
 }

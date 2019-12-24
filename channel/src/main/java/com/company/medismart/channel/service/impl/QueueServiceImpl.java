@@ -1,6 +1,7 @@
 package com.company.medismart.channel.service.impl;
 
 import com.company.medismart.channel.adaptor.QueueAdaptor;
+import com.company.medismart.channel.adaptor.QueuePatientAdaptor;
 import com.company.medismart.channel.dao.QuePatientDao;
 import com.company.medismart.channel.dao.QueueDao;
 import com.company.medismart.channel.dto.Queue;
@@ -10,10 +11,11 @@ import com.company.medismart.channel.dto.QueueStatus;
 import com.company.medismart.channel.model.QueModel;
 import com.company.medismart.channel.model.QueuePatientModel;
 import com.company.medismart.channel.param.PageableSupport;
-import com.company.medismart.channel.param.QueueResponse;
+import com.company.medismart.channel.param.QueuePatientLoadRequest;
 import com.company.medismart.channel.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,6 +34,9 @@ public class QueueServiceImpl implements QueueService {
 
     @Autowired
     private QueueAdaptor queueAdaptor;
+
+    @Autowired
+    private QueuePatientAdaptor queuePatientAdaptor;
 
     @Transactional
     @Override
@@ -89,5 +94,12 @@ public class QueueServiceImpl implements QueueService {
     public Page<Queue> loadAllQue(PageableSupport pageableSupport) {
         Page<QueModel> pagedQueues = queueDao.findAll(pageableSupport);
         return queueAdaptor.fromModelPage(pagedQueues);
+    }
+
+    @Transactional
+    @Override
+    public Page<QueuePatient> loadAllQueuePatients(QueuePatientLoadRequest loadRequest) {
+        Page<QueuePatientModel> patientModelPage = quePatientDao.findAllByQueue(loadRequest.getQueueId(),loadRequest);
+        return queuePatientAdaptor.fromModelPage(patientModelPage);
     }
 }
