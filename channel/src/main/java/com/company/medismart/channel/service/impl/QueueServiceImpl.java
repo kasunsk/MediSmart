@@ -99,7 +99,9 @@ public class QueueServiceImpl implements QueueService {
     @Transactional
     @Override
     public Page<QueuePatient> loadAllQueuePatients(QueuePatientLoadRequest loadRequest) {
-        Page<QueuePatientModel> patientModelPage = quePatientDao.findAllByQueue(loadRequest.getQueueId(),loadRequest);
+        QueModel queModel = queueDao.getOne(loadRequest.getQueueId());
+        loadRequest.setSort(Sort.by("queNumber"));
+        Page<QueuePatientModel> patientModelPage = quePatientDao.findAllByQueue(queModel,loadRequest);
         return queuePatientAdaptor.fromModelPage(patientModelPage);
     }
 }
