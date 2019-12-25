@@ -1,6 +1,5 @@
 package com.company.medismart.channel.param;
 
-import com.company.medismart.channel.dto.Queue;
 import com.company.medismart.channel.dto.QueuePatientStatus;
 
 public class QueuePatientResponseParam {
@@ -10,8 +9,6 @@ public class QueuePatientResponseParam {
     private Integer queNumber;
     private Long queueId;
     private QueuePatientStatus status;
-    private String createdDate;
-    private String lastModifiedDate;
 
     public Long getPatientQueId() {
         return patientQueId;
@@ -53,19 +50,4 @@ public class QueuePatientResponseParam {
         this.status = status;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(String lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
 }

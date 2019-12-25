@@ -2,15 +2,15 @@ package com.company.medismart.channel.param;
 
 public class PatientAddToQueParam {
 
-    private Long queId;
+    private Long queueId;
     private String patientId;
 
-    public Long getQueId() {
-        return queId;
+    public Long getQueueId() {
+        return queueId;
     }
 
-    public void setQueId(Long queId) {
-        this.queId = queId;
+    public void setQueueId(Long queueId) {
+        this.queueId = queueId;
     }
 
     public String getPatientId() {

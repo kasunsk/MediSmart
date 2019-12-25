@@ -4,6 +4,7 @@ import com.company.medismart.channel.dto.Queue;
 import com.company.medismart.channel.model.QueModel;
 import com.company.medismart.channel.param.QueueResponse;
 import com.company.medismart.core.adaptor.AbstractParamAdaptor;
+import com.company.medismart.core.utils.DateUtils;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,8 @@ public class QueueParamAdaptor extends AbstractParamAdaptor<QueueResponse, Queue
     public QueueResponse fromDto(Queue queue) {
         QueueResponse queueResponse = super.fromDto(queue);
         queueResponse.setPatients(queuePatientParamAdaptor.fromDtoList(queue.getPatients()));
+        queueResponse.setCreatedDate(DateUtils.toSimpleDate(queue.getCreatedDate()));
+        queueResponse.setLastModifiedDate(DateUtils.toSimpleDate(queue.getLastModifiedDate()));
         return queueResponse;
     }
 

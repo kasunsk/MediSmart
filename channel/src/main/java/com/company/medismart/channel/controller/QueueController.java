@@ -26,13 +26,14 @@ public class QueueController {
     private QueueParamAdaptor queueParamAdaptor;
 
     @RequestMapping(method = RequestMethod.PUT)
-    private Queue createQue(@RequestBody QueCreateParam queCreateParam) {
-        return queueService.createQue(queCreateParam.getDoctorUserId());
+    private QueueResponse createQue(@RequestBody QueCreateParam queCreateParam) {
+        Queue queue = queueService.createQue(queCreateParam.getDoctorUserId());
+        return queueParamAdaptor.fromDto(queue);
     }
 
     @RequestMapping(value = "/addPatient", method = RequestMethod.POST)
     private Integer addPatientToQue(@RequestBody PatientAddToQueParam patientAddToQueParam) {
-        return queueService.addPatientToQueue(patientAddToQueParam.getQueId(), patientAddToQueParam.getPatientId());
+        return queueService.addPatientToQueue(patientAddToQueParam.getQueueId(), patientAddToQueParam.getPatientId());
     }
 
     @RequestMapping(value = "/patients/{queId}", method = RequestMethod.GET)
