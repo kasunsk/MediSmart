@@ -2,10 +2,12 @@ package com.company.medismart.core.adaptor;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 public abstract class AbstractModelAdaptor<MODEL,DTO> {
 
@@ -77,6 +79,16 @@ public abstract class AbstractModelAdaptor<MODEL,DTO> {
         }
 
         return modelList;
+    }
+
+    public Page<DTO> fromModelPage(Page<MODEL> modelPage) {
+        Page<DTO> dtoPage = modelPage.map(new Function<MODEL, DTO>() {
+            @Override
+            public DTO apply(MODEL entity) {
+                return fromModel(entity);
+            }
+        });
+        return dtoPage;
     }
 
     protected abstract PropertyMap<MODEL, DTO> fromModelMappings();

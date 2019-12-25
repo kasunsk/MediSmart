@@ -1,11 +1,11 @@
 package com.company.medismart.channel.service;
 
 import com.company.medismart.channel.dto.PatientHistory;
-
-import java.util.List;
+import com.company.medismart.channel.param.PatientHistoryLoadRequest;
+import org.springframework.data.domain.Page;
 
 public interface PatientHistoryService {
 
     void addPatientHistoryRecord(PatientHistory patientHistory);
-    List<PatientHistory> loadPatientHistories(String patientNic);
+    Page<PatientHistory> loadPatientHistories(PatientHistoryLoadRequest loadRequest);
 }
