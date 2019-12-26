@@ -1,12 +1,12 @@
 package com.company.medismart.channel.dto;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatientMedicine {
     private Long patientMedicineId;
     private Long patientHistoryId;
-    private String timePeriod;
-    private Map<String,String> medicineQuantityMap;
+    private List<PatientMedicineRecord> patientMedicineRecord = new ArrayList<>();
 
     public Long getPatientMedicineId() {
         return patientMedicineId;
@@ -24,19 +24,11 @@ public class PatientMedicine {
         this.patientHistoryId = patientHistoryId;
     }
 
-    public String getTimePeriod() {
-        return timePeriod;
+    public List<PatientMedicineRecord> getPatientMedicineRecord() {
+        return patientMedicineRecord;
     }
 
-    public void setTimePeriod(String timePeriod) {
-        this.timePeriod = timePeriod;
-    }
-
-    public Map<String, String> getMedicineQuantityMap() {
-        return medicineQuantityMap;
-    }
-
-    public void setMedicineQuantityMap(Map<String, String> medicineQuantityMap) {
-        this.medicineQuantityMap = medicineQuantityMap;
+    public void setPatientMedicineRecord(List<PatientMedicineRecord> patientMedicineRecord) {
+        this.patientMedicineRecord = patientMedicineRecord;
     }
 }

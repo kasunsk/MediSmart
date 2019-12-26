@@ -24,7 +24,7 @@ public class PatientHistoryModel extends AbstractTrackableEntity {
     @Column(name = "DISEASE_STATUS", nullable = false)
     private PatientDiseaseStatus diseaseStatus;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "patientHistory")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "patientHistory")
     private PatientMedicineModel providedMedicine;
 
     public Long getPatientHistoryId() {

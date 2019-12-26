@@ -26,7 +26,11 @@ public class PatientHistoryServiceImpl implements PatientHistoryService {
     @Transactional
     @Override
     public void addPatientHistoryRecord(PatientHistory patientHistory) {
-
+        PatientHistoryModel patientHistoryModel = patientHistoryModelAdaptor.fromDto(patientHistory);
+        if (patientHistoryModel.getProvidedMedicine() != null) {
+            patientHistoryModel.getProvidedMedicine().setPatientHistory(patientHistoryModel);
+        }
+        patientHistoryDao.save(patientHistoryModel);
     }
 
     @Transactional

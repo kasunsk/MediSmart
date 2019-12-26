@@ -29,4 +29,10 @@ public class PatientHistoryController {
         Page<PatientHistory> patientHistories =  patientHistoryService.loadPatientHistories(request);
         return patientHistoryParamAdaptor.fromDtoPage(patientHistories);
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public Boolean addPatientHistory(@RequestBody PatientHistory request) {
+        patientHistoryService.addPatientHistoryRecord(request);
+        return Boolean.TRUE;
+    }
 }

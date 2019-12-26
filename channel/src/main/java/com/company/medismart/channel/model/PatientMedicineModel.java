@@ -15,11 +15,8 @@ public class PatientMedicineModel {
     @JoinColumn(name = "PATIENT_HISTORY_ID", nullable = false)
     private PatientHistoryModel patientHistory;
 
-    @Column(name = "MEDICINE_VALIDITY", nullable = false)
-    private String timePeriod;
-
     @Column(name = "MEDICINE_AND_QUANTITY", nullable = false)
-    private String medicineQuantityMap;
+    private String patientMedicineRecord;
 
     public Long getPatientMedicineId() {
         return patientMedicineId;
@@ -37,19 +34,11 @@ public class PatientMedicineModel {
         this.patientHistory = patientHistory;
     }
 
-    public String getTimePeriod() {
-        return timePeriod;
+    public String getPatientMedicineRecord() {
+        return patientMedicineRecord;
     }
 
-    public void setTimePeriod(String timePeriod) {
-        this.timePeriod = timePeriod;
-    }
-
-    public String getMedicineQuantityMap() {
-        return medicineQuantityMap;
-    }
-
-    public void setMedicineQuantityMap(String medicineQuantityMap) {
-        this.medicineQuantityMap = medicineQuantityMap;
+    public void setPatientMedicineRecord(String patientMedicineRecord) {
+        this.patientMedicineRecord = patientMedicineRecord;
     }
 }
