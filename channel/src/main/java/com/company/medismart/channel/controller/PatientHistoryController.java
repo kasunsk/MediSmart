@@ -1,9 +1,7 @@
 package com.company.medismart.channel.controller;
 
 import com.company.medismart.channel.adaptor.PatientHistoryParamAdaptor;
-import com.company.medismart.channel.dto.Patient;
 import com.company.medismart.channel.dto.PatientHistory;
-import com.company.medismart.channel.param.PageableSupport;
 import com.company.medismart.channel.param.PatientHistoryLoadRequest;
 import com.company.medismart.channel.param.PatientHistoryParam;
 import com.company.medismart.channel.service.PatientHistoryService;
@@ -25,7 +23,7 @@ public class PatientHistoryController {
     private PatientHistoryParamAdaptor patientHistoryParamAdaptor;
 
     @RequestMapping(method = RequestMethod.POST)
-    public Page<PatientHistoryParam> loadAllPatientHistory(@RequestBody PatientHistoryLoadRequest request) {
+    public Page<PatientHistoryParam> loadPatientHistory(@RequestBody PatientHistoryLoadRequest request) {
         Page<PatientHistory> patientHistories =  patientHistoryService.loadPatientHistories(request);
         return patientHistoryParamAdaptor.fromDtoPage(patientHistories);
     }

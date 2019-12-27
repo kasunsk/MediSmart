@@ -6,6 +6,8 @@ import java.util.List;
 public class PatientMedicine {
     private Long patientMedicineId;
     private Long patientHistoryId;
+    private Long queueId;
+    private MedicineIssueStatus status;
     private List<PatientMedicineRecord> patientMedicineRecord = new ArrayList<>();
 
     public Long getPatientMedicineId() {
@@ -22,6 +24,22 @@ public class PatientMedicine {
 
     public void setPatientHistoryId(Long patientHistoryId) {
         this.patientHistoryId = patientHistoryId;
+    }
+
+    public Long getQueueId() {
+        return queueId;
+    }
+
+    public void setQueueId(Long queueId) {
+        this.queueId = queueId;
+    }
+
+    public MedicineIssueStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MedicineIssueStatus status) {
+        this.status = status;
     }
 
     public List<PatientMedicineRecord> getPatientMedicineRecord() {

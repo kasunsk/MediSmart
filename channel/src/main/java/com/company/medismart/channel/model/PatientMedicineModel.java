@@ -1,5 +1,7 @@
 package com.company.medismart.channel.model;
 
+import com.company.medismart.channel.dto.MedicineIssueStatus;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,13 @@ public class PatientMedicineModel {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "PATIENT_HISTORY_ID", nullable = false)
     private PatientHistoryModel patientHistory;
+
+    @Column(name = "QUEUE_ID", nullable = false)
+    private Long queueId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS", nullable = false)
+    private MedicineIssueStatus status;
 
     @Column(name = "MEDICINE_AND_QUANTITY", nullable = false)
     private String patientMedicineRecord;
@@ -32,6 +41,22 @@ public class PatientMedicineModel {
 
     public void setPatientHistory(PatientHistoryModel patientHistory) {
         this.patientHistory = patientHistory;
+    }
+
+    public Long getQueueId() {
+        return queueId;
+    }
+
+    public void setQueueId(Long queueId) {
+        this.queueId = queueId;
+    }
+
+    public MedicineIssueStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MedicineIssueStatus status) {
+        this.status = status;
     }
 
     public String getPatientMedicineRecord() {

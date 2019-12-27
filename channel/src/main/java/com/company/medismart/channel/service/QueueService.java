@@ -1,7 +1,9 @@
 package com.company.medismart.channel.service;
 
+import com.company.medismart.channel.dto.Patient;
 import com.company.medismart.channel.dto.Queue;
 import com.company.medismart.channel.dto.QueuePatient;
+import com.company.medismart.channel.param.MedicineIssueRequest;
 import com.company.medismart.channel.param.PageableSupport;
 import com.company.medismart.channel.param.QueuePatientLoadRequest;
 import org.springframework.data.domain.Page;
@@ -16,4 +18,6 @@ public interface QueueService {
     Queue loadQueById(Long queId);
     Page<Queue> loadAllQue(PageableSupport pageableSupport);
     Page<QueuePatient> loadAllQueuePatients(QueuePatientLoadRequest loadRequest);
+    Patient callNextPatient(Long queueId);
+    void issueMedicine(MedicineIssueRequest medicineIssueRequest);
 }

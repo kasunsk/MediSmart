@@ -2,16 +2,16 @@ package com.company.medismart.channel.service.impl;
 
 import com.company.medismart.channel.adaptor.QueueAdaptor;
 import com.company.medismart.channel.adaptor.QueuePatientAdaptor;
+import com.company.medismart.channel.dao.PatientHistoryDao;
 import com.company.medismart.channel.dao.QuePatientDao;
 import com.company.medismart.channel.dao.QueueDao;
-import com.company.medismart.channel.dto.Queue;
-import com.company.medismart.channel.dto.QueuePatient;
-import com.company.medismart.channel.dto.QueuePatientStatus;
-import com.company.medismart.channel.dto.QueueStatus;
+import com.company.medismart.channel.dto.*;
 import com.company.medismart.channel.model.QueModel;
 import com.company.medismart.channel.model.QueuePatientModel;
+import com.company.medismart.channel.param.MedicineIssueRequest;
 import com.company.medismart.channel.param.PageableSupport;
 import com.company.medismart.channel.param.QueuePatientLoadRequest;
+import com.company.medismart.channel.service.PatientService;
 import com.company.medismart.channel.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,10 +27,16 @@ import java.util.List;
 public class QueueServiceImpl implements QueueService {
 
     @Autowired
+    private PatientService patientService;
+
+    @Autowired
     private QueueDao queueDao;
 
     @Autowired
     private QuePatientDao quePatientDao;
+
+    @Autowired
+    private PatientHistoryDao patientHistoryDao;
 
     @Autowired
     private QueueAdaptor queueAdaptor;
@@ -103,5 +109,22 @@ public class QueueServiceImpl implements QueueService {
         loadRequest.setSort(Sort.by("queNumber"));
         Page<QueuePatientModel> patientModelPage = quePatientDao.findAllByQueue(queModel,loadRequest);
         return queuePatientAdaptor.fromModelPage(patientModelPage);
+    }
+
+    @Transactional
+    @Override
+    public Patient callNextPatient(Long queueId) {
+        QueModel queModel = queueDao.getOne(queueId);
+        List<QueuePatientModel> queuePatientModels = quePatientDao.findAllByQueue(queModel);
+        QueuePatientModel patientModel = queuePatientModels.stream().filter(patient -> QueuePatientStatus.WAITING.equals(patient.getStatus()))
+                .min(Comparator.comparing(QueuePatientModel::getQueNumber)).orElseThrow(RuntimeException::new);
+        return patientService.loadPatientByNic(patientModel.getPatientNic());
+    }
+
+    @Transactional
+    @Override
+    public void issueMedicine(MedicineIssueRequest medicineIssueRequest) {
+        PatientHistory record = medicineIssueRequest.getRecord();;
+
     }
 }
