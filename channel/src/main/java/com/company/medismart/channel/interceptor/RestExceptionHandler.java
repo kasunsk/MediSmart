@@ -4,6 +4,8 @@ package com.company.medismart.channel.interceptor;
 import com.company.medismart.core.exception.ServiceRuntimeException;
 import com.company.medismart.core.exception.dto.ApiError;
 import com.company.medismart.core.exception.dto.ErrorCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static final Logger LOG = LoggerFactory.getLogger(RestExceptionHandler.class);
+
     @ExceptionHandler(ServiceRuntimeException.class)
     protected ResponseEntity<Object> applicationException(ServiceRuntimeException ex) {
 
         ApiError apiError;
         String errorCode = ex.getErrorCode();
+        LOG.error(ex.getMessage());
+
 
         switch (errorCode) {
             case ErrorCode.AUTH_ERROR:

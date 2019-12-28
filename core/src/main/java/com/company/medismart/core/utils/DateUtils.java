@@ -10,6 +10,7 @@ public class DateUtils {
 
     private static final SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static String toSimpleDate(Date date) {
@@ -36,12 +37,12 @@ public class DateUtils {
         return sdf.parse(dateString);
     }
 
-    public static String toSimpleDate(LocalDateTime time) {
+    public static String toStringDate(LocalDateTime time) {
 
         if (time == null) {
             return null;
         }
-        return sdf.format(time);
+        return time + "";
     }
 }
 
