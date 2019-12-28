@@ -2,6 +2,7 @@ package com.company.medismart.core.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -33,6 +34,14 @@ public class DateUtils {
             return null;
         }
         return sdf.parse(dateString);
+    }
+
+    public static String toSimpleDate(LocalDateTime time) {
+
+        if (time == null) {
+            return null;
+        }
+        return sdf.format(time);
     }
 }
 

@@ -6,6 +6,8 @@ import com.company.medismart.channel.dto.Patient;
 import com.company.medismart.channel.model.PatientModel;
 import com.company.medismart.channel.param.PageableSupport;
 import com.company.medismart.channel.service.PatientService;
+import com.company.medismart.core.exception.ServiceRuntimeException;
+import com.company.medismart.core.exception.dto.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,10 @@ public class PatientServiceImpl implements PatientService {
     @Transactional
     @Override
     public void addPatient(Patient patient) {
+        PatientModel currentPatient = patientDao.findByNic(patient.getNic());
+        if (currentPatient != null) {
+            throw new ServiceRuntimeException("Patient Already Exist", ErrorCode.ALREADY_EXIST);
+        }
         PatientModel patientModel = patientAdaptor.fromDto(patient);
         patientDao.save(patientModel);
     }
