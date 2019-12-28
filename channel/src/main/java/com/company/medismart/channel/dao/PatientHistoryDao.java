@@ -1,5 +1,6 @@
 package com.company.medismart.channel.dao;
 
+import com.company.medismart.channel.dto.MedicineIssueStatus;
 import com.company.medismart.channel.model.PatientHistoryModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,5 +14,9 @@ public interface PatientHistoryDao extends JpaRepository<PatientHistoryModel, Lo
 
     List<PatientHistoryModel> findAllByPatientNic(String nic);
 
+    PatientHistoryModel findOneByPatientHistoryId(Long historyId);
+
     Page<PatientHistoryModel> findAllByPatientNic(String nic, Pageable pageable);
+
+    PatientHistoryModel findOneByPatientNicAndProvidedMedicineQueueIdAndProvidedMedicineStatus(String nic, Long queueId, MedicineIssueStatus medicineStatus);
 }

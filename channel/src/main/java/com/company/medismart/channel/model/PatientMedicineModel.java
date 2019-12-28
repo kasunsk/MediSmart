@@ -1,12 +1,13 @@
 package com.company.medismart.channel.model;
 
 import com.company.medismart.channel.dto.MedicineIssueStatus;
+import com.company.medismart.core.model.AbstractEntity;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "PATIENT_MEDICINE")
-public class PatientMedicineModel {
+public class PatientMedicineModel extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

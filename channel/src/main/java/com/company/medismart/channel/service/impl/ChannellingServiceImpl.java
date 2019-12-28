@@ -47,7 +47,7 @@ public class ChannellingServiceImpl implements ChannellingService {
 
     @Transactional
     @Override
-    public void issueMedicine(MedicineIssueRequest medicineIssueRequest) {
+    public void completeChannelling(MedicineIssueRequest medicineIssueRequest) {
         PatientHistory record = medicineIssueRequest.getRecord();
         String patientNic = record.getPatientNic();
         QueModel queModel = queueDao.getOne(medicineIssueRequest.getQueueId());
@@ -59,5 +59,24 @@ public class ChannellingServiceImpl implements ChannellingService {
         patientMedicine.setQueueId(medicineIssueRequest.getQueueId());
         record.setProvidedMedicine(patientMedicine);
         patientHistoryService.addPatientHistoryRecord(record);
+    }
+
+    @Transactional
+    @Override
+    public PatientMedicine viewQueuePatientMedicine(Long queId, String patientNic) {
+        PatientHistory history = patientHistoryService.loadQuePatientHistory(queId, patientNic);
+        return history.getProvidedMedicine();
+    }
+
+    @Transactional
+    @Override
+    public Boolean issueMedicine(Long queId, String patientNic) {
+        PatientHistory history = patientHistoryService.loadQuePatientHistory(queId, patientNic);
+        patientHistoryService.issueMedicineForPatient(history.getPatientHistoryId());
+        QueModel queue = queueDao.getOne(queId);
+        QueuePatientModel queuePatientModel = quePatientDao.findOneByQueueAndPatientNic(queue, patientNic);
+        queuePatientModel.setStatus(QueuePatientStatus.MEDICATED);
+        quePatientDao.save(queuePatientModel);
+        return Boolean.TRUE;
     }
 }

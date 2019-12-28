@@ -1,12 +1,13 @@
 package com.company.medismart.channel.model;
 
 import com.company.medismart.channel.dto.QueuePatientStatus;
+import com.company.medismart.core.model.AbstractTrackableEntity;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "QUEUE_PATIENT")
-public class QueuePatientModel {
+public class QueuePatientModel extends AbstractTrackableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

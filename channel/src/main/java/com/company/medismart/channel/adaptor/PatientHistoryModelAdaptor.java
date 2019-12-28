@@ -20,7 +20,7 @@ public class PatientHistoryModelAdaptor extends AbstractModelAdaptor<PatientHist
     @Override
     public PatientHistory fromModel(PatientHistoryModel document) {
         PatientHistory patientHistory = super.fromModel(document);
-        if (document.getProvidedMedicine() != null) {
+        if (document != null && document.getProvidedMedicine() != null) {
             patientHistory.setProvidedMedicine(medicineModelAdaptor.fromModel(document.getProvidedMedicine()));
         }
         return patientHistory;
