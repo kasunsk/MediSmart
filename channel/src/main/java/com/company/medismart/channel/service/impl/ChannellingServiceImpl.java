@@ -65,6 +65,9 @@ public class ChannellingServiceImpl implements ChannellingService {
     @Override
     public PatientMedicine viewQueuePatientMedicine(Long queId, String patientNic) {
         PatientHistory history = patientHistoryService.loadQuePatientHistory(queId, patientNic);
+        if(history == null) {
+            return new PatientMedicine();
+        }
         return history.getProvidedMedicine();
     }
 
