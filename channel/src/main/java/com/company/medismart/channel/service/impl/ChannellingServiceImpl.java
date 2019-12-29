@@ -3,14 +3,16 @@ package com.company.medismart.channel.service.impl;
 import com.company.medismart.channel.dao.QuePatientDao;
 import com.company.medismart.channel.dao.QueueDao;
 import com.company.medismart.channel.dto.*;
-import com.company.medismart.channel.model.QueModel;
+import com.company.medismart.channel.model.QueueModel;
 import com.company.medismart.channel.model.QueuePatientModel;
 import com.company.medismart.channel.param.MedicineIssueRequest;
+import com.company.medismart.channel.param.PageableSupport;
 import com.company.medismart.channel.service.ChannellingService;
 import com.company.medismart.channel.service.PatientHistoryService;
 import com.company.medismart.channel.service.PatientService;
 import com.company.medismart.channel.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -38,8 +40,8 @@ public class ChannellingServiceImpl implements ChannellingService {
     @Transactional
     @Override
     public Patient callNextPatient(Long queueId) {
-        QueModel queModel = queueDao.getOne(queueId);
-        List<QueuePatientModel> queuePatientModels = quePatientDao.findAllByQueue(queModel);
+        QueueModel queueModel = queueDao.getOne(queueId);
+        List<QueuePatientModel> queuePatientModels = quePatientDao.findAllByQueue(queueModel);
         QueuePatientModel patientModel = queuePatientModels.stream().filter(patient -> QueuePatientStatus.WAITING.equals(patient.getStatus()))
                 .min(Comparator.comparing(QueuePatientModel::getQueNumber)).orElseThrow(RuntimeException::new);
         return patientService.loadPatientByNic(patientModel.getPatientNic());
@@ -50,8 +52,8 @@ public class ChannellingServiceImpl implements ChannellingService {
     public void completeChannelling(MedicineIssueRequest medicineIssueRequest) {
         PatientHistory record = medicineIssueRequest.getRecord();
         String patientNic = record.getPatientNic();
-        QueModel queModel = queueDao.getOne(medicineIssueRequest.getQueueId());
-        QueuePatientModel queuePatientModel = quePatientDao.findOneByQueueAndPatientNic(queModel, patientNic);
+        QueueModel queueModel = queueDao.getOne(medicineIssueRequest.getQueueId());
+        QueuePatientModel queuePatientModel = quePatientDao.findOneByQueueAndPatientNic(queueModel, patientNic);
         queuePatientModel.setStatus(QueuePatientStatus.CHANNELED);
         quePatientDao.save(queuePatientModel);
         PatientMedicine patientMedicine = record.getProvidedMedicine();
@@ -76,7 +78,7 @@ public class ChannellingServiceImpl implements ChannellingService {
     public Boolean issueMedicine(Long queId, String patientNic) {
         PatientHistory history = patientHistoryService.loadQuePatientHistory(queId, patientNic);
         patientHistoryService.issueMedicineForPatient(history.getPatientHistoryId());
-        QueModel queue = queueDao.getOne(queId);
+        QueueModel queue = queueDao.getOne(queId);
         QueuePatientModel queuePatientModel = quePatientDao.findOneByQueueAndPatientNic(queue, patientNic);
         queuePatientModel.setStatus(QueuePatientStatus.MEDICATED);
         quePatientDao.save(queuePatientModel);

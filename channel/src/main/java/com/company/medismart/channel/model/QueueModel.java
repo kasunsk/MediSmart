@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "T_QUEUE")
-public class QueModel extends AbstractTrackableEntity {
+public class QueueModel extends AbstractTrackableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -22,7 +22,7 @@ public class QueuePatientModel extends AbstractTrackableEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "QUEUE_ID")
-    private QueModel queue;
+    private QueueModel queue;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "QUEUE_PATIENT_STATUS", nullable = false)
@@ -52,11 +52,11 @@ public class QueuePatientModel extends AbstractTrackableEntity {
         this.queNumber = queNumber;
     }
 
-    public QueModel getQueue() {
+    public QueueModel getQueue() {
         return queue;
     }
 
-    public void setQueue(QueModel queue) {
+    public void setQueue(QueueModel queue) {
         this.queue = queue;
     }
 

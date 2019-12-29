@@ -6,7 +6,7 @@ import com.company.medismart.channel.dao.PatientHistoryDao;
 import com.company.medismart.channel.dao.QuePatientDao;
 import com.company.medismart.channel.dao.QueueDao;
 import com.company.medismart.channel.dto.*;
-import com.company.medismart.channel.model.QueModel;
+import com.company.medismart.channel.model.QueueModel;
 import com.company.medismart.channel.model.QueuePatientModel;
 import com.company.medismart.channel.param.MedicineIssueRequest;
 import com.company.medismart.channel.param.PageableSupport;
@@ -47,33 +47,33 @@ public class QueueServiceImpl implements QueueService {
     @Transactional
     @Override
     public Queue createQue(String doctorUserId) {
-        QueModel queModel = new QueModel();
-        queModel.setDoctorUserId(doctorUserId);
-        queModel.setStatus(QueueStatus.ACTIVE);
-        queueDao.save(queModel);
-        return queueAdaptor.fromModel(queModel);
+        QueueModel queueModel = new QueueModel();
+        queueModel.setDoctorUserId(doctorUserId);
+        queueModel.setStatus(QueueStatus.ACTIVE);
+        queueDao.save(queueModel);
+        return queueAdaptor.fromModel(queueModel);
     }
 
     @Transactional
     @Override
     public void inActiveQueue(Long queId) {
-        QueModel queModel = queueDao.getOne(queId);
-        queModel.setStatus(QueueStatus.IN_ACTIVE);
-        queueDao.save(queModel);
+        QueueModel queueModel = queueDao.getOne(queId);
+        queueModel.setStatus(QueueStatus.IN_ACTIVE);
+        queueDao.save(queueModel);
     }
 
     @Transactional
     @Override
     public Integer addPatientToQueue(Long queId, String patientId) {
-        QueModel queModel = queueDao.getOne(queId);
-        List<QueuePatientModel> queuePatientModels = queModel.getPatients();
+        QueueModel queueModel = queueDao.getOne(queId);
+        List<QueuePatientModel> queuePatientModels = queueModel.getPatients();
         QueuePatientModel lastPatient = queuePatientModels.stream().max(Comparator.comparing(QueuePatientModel::getQueNumber)).orElse(new QueuePatientModel());
         Integer nextQueueNumber = lastPatient.getQueNumber() == null ? 1 : lastPatient.getQueNumber() + 1;
         QueuePatientModel newPatient = new QueuePatientModel();
         newPatient.setPatientNic(patientId);
         newPatient.setStatus(QueuePatientStatus.WAITING);
         newPatient.setQueNumber(nextQueueNumber);
-        newPatient.setQueue(queModel);
+        newPatient.setQueue(queueModel);
         quePatientDao.save(newPatient);
         return nextQueueNumber;
     }
@@ -82,40 +82,40 @@ public class QueueServiceImpl implements QueueService {
     @Override
     public List<QueuePatient> loadAllQuePatients(Long queId) {
 
-        QueModel queModel = queueDao.getOne(queId);
-        Queue queue = queueAdaptor.fromModel(queModel);
+        QueueModel queueModel = queueDao.getOne(queId);
+        Queue queue = queueAdaptor.fromModel(queueModel);
         return queue.getPatients();
     }
 
     @Transactional
     @Override
     public Queue loadQueById(Long queId) {
-        QueModel queModel = queueDao.getOne(queId);
-        queModel.setPatients(new ArrayList<>());
-        return queueAdaptor.fromModel(queModel);
+        QueueModel queueModel = queueDao.getOne(queId);
+        queueModel.setPatients(new ArrayList<>());
+        return queueAdaptor.fromModel(queueModel);
     }
 
     @Transactional
     @Override
     public Page<Queue> loadAllQue(PageableSupport pageableSupport) {
-        Page<QueModel> pagedQueues = queueDao.findAll(pageableSupport);
+        Page<QueueModel> pagedQueues = queueDao.findAll(pageableSupport);
         return queueAdaptor.fromModelPage(pagedQueues);
     }
 
     @Transactional
     @Override
     public Page<QueuePatient> loadAllQueuePatients(QueuePatientLoadRequest loadRequest) {
-        QueModel queModel = queueDao.getOne(loadRequest.getQueueId());
+        QueueModel queueModel = queueDao.getOne(loadRequest.getQueueId());
         loadRequest.setSort(Sort.by("queNumber"));
-        Page<QueuePatientModel> patientModelPage = quePatientDao.findAllByQueue(queModel,loadRequest);
+        Page<QueuePatientModel> patientModelPage = quePatientDao.findAllByQueue(queueModel,loadRequest);
         return queuePatientAdaptor.fromModelPage(patientModelPage);
     }
 
     @Transactional
     @Override
     public Patient callNextPatient(Long queueId) {
-        QueModel queModel = queueDao.getOne(queueId);
-        List<QueuePatientModel> queuePatientModels = quePatientDao.findAllByQueue(queModel);
+        QueueModel queueModel = queueDao.getOne(queueId);
+        List<QueuePatientModel> queuePatientModels = quePatientDao.findAllByQueue(queueModel);
         QueuePatientModel patientModel = queuePatientModels.stream().filter(patient -> QueuePatientStatus.WAITING.equals(patient.getStatus()))
                 .min(Comparator.comparing(QueuePatientModel::getQueNumber)).orElseThrow(RuntimeException::new);
         return patientService.loadPatientByNic(patientModel.getPatientNic());

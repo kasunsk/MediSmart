@@ -1,7 +1,6 @@
 package com.company.medismart.channel.adaptor;
 
 import com.company.medismart.channel.dto.Queue;
-import com.company.medismart.channel.model.QueModel;
 import com.company.medismart.channel.param.QueueResponse;
 import com.company.medismart.core.adaptor.AbstractParamAdaptor;
 import com.company.medismart.core.utils.DateUtils;
