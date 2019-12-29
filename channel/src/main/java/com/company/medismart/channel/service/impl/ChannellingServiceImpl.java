@@ -6,13 +6,13 @@ import com.company.medismart.channel.dto.*;
 import com.company.medismart.channel.model.QueueModel;
 import com.company.medismart.channel.model.QueuePatientModel;
 import com.company.medismart.channel.param.MedicineIssueRequest;
-import com.company.medismart.channel.param.PageableSupport;
 import com.company.medismart.channel.service.ChannellingService;
 import com.company.medismart.channel.service.PatientHistoryService;
 import com.company.medismart.channel.service.PatientService;
 import com.company.medismart.channel.service.QueueService;
+import com.company.medismart.core.exception.ServiceRuntimeException;
+import com.company.medismart.core.exception.dto.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -60,6 +60,11 @@ public class ChannellingServiceImpl implements ChannellingService {
         patientMedicine.setStatus(MedicineIssueStatus.TO_BE_ISSUE);
         patientMedicine.setQueueId(medicineIssueRequest.getQueueId());
         record.setProvidedMedicine(patientMedicine);
+        PatientHistory patientHistory = patientHistoryService.loadQuePatientHistory(medicineIssueRequest.getQueueId(),
+                medicineIssueRequest.getRecord().getPatientNic());
+        if (patientHistory != null) {
+            throw new ServiceRuntimeException("Already Channelled Patient", ErrorCode.ALREADY_EXIST);
+        }
         patientHistoryService.addPatientHistoryRecord(record);
     }
 

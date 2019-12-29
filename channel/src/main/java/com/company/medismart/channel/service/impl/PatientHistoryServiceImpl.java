@@ -2,12 +2,16 @@ package com.company.medismart.channel.service.impl;
 
 import com.company.medismart.channel.adaptor.PatientHistoryModelAdaptor;
 import com.company.medismart.channel.dao.PatientHistoryDao;
+import com.company.medismart.channel.dao.PatientMedicineDao;
 import com.company.medismart.channel.dto.MedicineIssueStatus;
 import com.company.medismart.channel.dto.PatientHistory;
+import com.company.medismart.channel.dto.PatientMedicine;
 import com.company.medismart.channel.model.PatientHistoryModel;
 import com.company.medismart.channel.model.PatientMedicineModel;
 import com.company.medismart.channel.param.PatientHistoryLoadRequest;
 import com.company.medismart.channel.service.PatientHistoryService;
+import com.company.medismart.channel.util.PatientMedicineRecordUtil;
+import com.company.medismart.core.exception.ServiceRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
