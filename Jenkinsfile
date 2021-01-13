@@ -1,28 +1,21 @@
 pipeline {
 
-    agent {
-        label 'agentId' //The id of the slave/agent where the build should be executed, if it doesn't matter use "agent any" instead.
-    }
-
-    triggers {
-        cron('H */8 * * *') //regular builds
-        pollSCM('* * * * *') //polling for changes, here once a minute
-    }
+    agent any
 
     stages {
         stage('Checkout') {
             steps { //Checking out the repo
-                checkout changelog: true, poll: true, scm: [$class: 'GitSCM', branches: [[name: '*/master']], browser: [$class: 'BitbucketWeb', repoUrl: 'https://web.com/blah'], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'ssh://git@git.giturl.com/test/test.git']]]
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/kasunsk/MediSmart.git']]])
             }
         }
-        stage('Unit & Integration Tests') {
+        stage('Build') {
                     steps {
                         script {
                             sh './gradlew clean build --no-daemon' //run a gradle task
                         }
                     }
                 }
-        stage('Unit & Integration Tests') {
+        stage('Unit Test') {
             steps {
                 script {
                     try {
@@ -32,18 +25,6 @@ pipeline {
                     }
                 }
             }
-        }
-        stage('Publish Artifact to Nexus') {
-            steps {
-                sh './gradlew publish --no-daemon'
-            }
-        }
-    }
-    post {
-        always { //Send an email to the person that broke the build
-            step([$class                  : 'Mailer',
-                  notifyEveryUnstableBuild: true,
-                  recipients              : [emailextrecipients([[$class: 'CulpritsRecipientProvider'], [$class: 'RequesterRecipientProvider']])].join(' ')])
         }
     }
 }
