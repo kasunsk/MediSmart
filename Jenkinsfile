@@ -26,7 +26,7 @@ pipeline {
                 }
             }
         }
-        stage('Unit Test') {
+        stage('Docker Image') {
                     steps {
                         script {
                            sh './gradlew docker --no-daemon' //run a gradle task
