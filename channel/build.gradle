@@ -37,5 +37,6 @@ test {
 
 docker {
 	name "${project.name}:${project.version}"
-	files 'channel.jar'
+	files 'channeling.jar'
+	tag 'DockerHub', "kasunsk/medi-smart:${project.version}"
 }
