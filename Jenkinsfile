@@ -33,5 +33,12 @@ pipeline {
                         }
                     }
                 }
+        stage('Docker Push') {
+                     steps {
+                          script {
+                            sh './gradlew dockerPushDockerHub --no-daemon' //run a gradle task
+                         }
+                     }
+                 }
     }
 }
