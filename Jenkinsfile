@@ -33,5 +33,12 @@ pipeline {
                         }
                     }
                 }
+        stage('Docker Image') {
+                     steps {
+                          script {
+                            sh './gradlew dockerPushDockerHub --no-daemon' //run a gradle task
+                         }
+                     }
+                 }
     }
 }
