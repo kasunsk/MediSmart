@@ -33,7 +33,7 @@ pipeline {
                         }
                     }
                 }
-        stage('Docker Image') {
+        stage('Docker Push') {
                      steps {
                           script {
                             sh './gradlew dockerPushDockerHub --no-daemon' //run a gradle task
