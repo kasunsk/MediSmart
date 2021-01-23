@@ -1,9 +1,5 @@
 package com.company.medismart.channel.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
 
 public class Patient {
 
