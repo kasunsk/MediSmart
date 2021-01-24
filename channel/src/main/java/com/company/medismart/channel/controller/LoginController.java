@@ -1,6 +1,7 @@
 package com.company.medismart.channel.controller;
 
 import com.company.medismart.channel.dto.Login;
+import com.company.medismart.channel.dto.LoginResponse;
 import com.company.medismart.channel.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,15 +19,24 @@ public class LoginController {
 
     @CrossOrigin
     @PostMapping(value = "/login")
-    public String login(@RequestBody Login login) {
+    public LoginResponse login(@RequestBody Login login) {
         log.info("Login Request received for {}", login.toString());
         return authService.login(login);
     }
 
     @CrossOrigin
     @PostMapping(value = "/logout")
-    public Boolean logout(@PathVariable("username") String username) {
+    public LoginResponse logout() {
+        String username = "kasun";
         log.info("Logout Request received for {}", username);
         return authService.logout(username);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/isLoggedIn")
+    public LoginResponse isLoggedIn() {
+        LoginResponse response = new LoginResponse();
+        response.setSuccess(false);
+        return response;
     }
 }
